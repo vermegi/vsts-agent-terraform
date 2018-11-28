@@ -56,7 +56,7 @@ namespace VSTSBuildAgent
         public static async Task<HttpResponseMessage> StopVSTSBuildAgenttAsync([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]HttpRequestMessage req, TraceWriter log)
         {
             var agentName = await GetNameAsync(req, "agentName");
-            await _azure.ContainerGroups.DeleteByResourceGroupAsync(ConfigurationManager.AppSettings["resourceGroupName"], agentName);
+            await AzureConn.ContainerGroups.DeleteByResourceGroupAsync(ConfigurationManager.AppSettings["resourceGroupName"], agentName);
             return req.CreateResponse(HttpStatusCode.OK, "VSTS agent has been removed");
         }
 
